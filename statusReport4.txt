@@ -1,0 +1,36 @@
+Name: Christopher Jones
+Project Title: Tour Bus Dispatch Generator
+
+Team Members: Christopher Jones
+
+Overall Status: Developing prototype
+
+Number of hours worked since last update: 10
+Number of hours worked on the project thus far: 35
+Total number of hours anticipated for completion:130
+
+Accomplishments: 
+Established better communication with the people I'm making this for. Got some feedback for the direction
+I'm going, and got some more specific requirements from them. Got Google OR tools to assign vehicles
+with time window constraints while also considering travel time between locations.
+Also got OR tools to ensure vehicles only pick up one group at a time.
+
+
+Challenges:
+After talking to my people in Alaska, I've realized they want the final dispatch to display names of tours,
+not just the locations. I'll need to figure out how to calculate that in the program.
+
+
+Plans / Goals for next week:
+Continue the prototype. Include vehicle capacity constraints in the algorithm. Explore wxPython gui to get an 
+idea on how I'm going to make the user interface.
+
+
+Accountability plan: (What is your plan to keep yourself honest and follow through with the goals that you have outlined?)
+Work for 2 hours per day for 5 days out of the week. If a miss a day make up for it on Saturday.
+
+
+Other comments:
+Talking to my people in alaska, I realize that to make this work it's going to need to be very customized
+to their business. I probably won't be able to make an app that can be universally effective for any tour 
+company unless I start a completely different project later.
