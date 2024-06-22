@@ -74,11 +74,13 @@ def saveTemplate(excelFile):
         for cell in column:
             if cell.value != None:
                 countSinceData = 0
-            else:
+            elif cell.value == None:
                 countSinceData += 1
             
             dataList[-1].append(cell.value)
-        dataList[-1] = dataList[-1][:1-countSinceData]
+        if countSinceData > 3:
+            dataList[-1] = dataList[-1][:1-countSinceData]        
+        dataList[-1].append(None)
 
     dataString = ""
     for column in dataList:
@@ -86,7 +88,7 @@ def saveTemplate(excelFile):
         for cell in column:
             dataString += f"{cell}"
             dataString += "~"
-        dataString = dataString[:-1]
+        dataString = dataString[1:-1]
     
 
 
@@ -97,7 +99,19 @@ def saveTemplate(excelFile):
         newDataList = dataString.split("@")
         for i in range(len(newDataList)):
             newDataList[i] = newDataList[i].split("~")
-        print(newDataList)
+        
+
+        newTemplate = wb.create_sheet("Example")
+
+
+
+        for col_idx, col_data in enumerate(newDataList, start=1):
+            for row_idx, value in enumerate(col_data, start=1):
+                if value == "None":
+                    newTemplate.cell(row=row_idx, column=col_idx, value=None)
+                else:
+                    newTemplate.cell(row=row_idx, column=col_idx, value=value)
+        wb.save("/Users/user-1/Desktop/TestDispatchGenerator.xlsx")
 
 
 saveTemplate("hi")
