@@ -1,5 +1,6 @@
 import sqlite3
 from openpyxl import load_workbook
+from loadTemplate import loadTemplate
 
 def create_connection(db_file):
 
@@ -15,9 +16,12 @@ def create_connection(db_file):
 def create_table(conn):
 
     print("about to create table")
-    create_table_sql = """CREATE TABLE IF NOT EXISTS testTemplate2 
+    create_table_sql = """CREATE TABLE IF NOT EXISTS templateModel 
     (id INTEGER PRIMARY KEY AUTOINCREMENT,
-    workSheetData TEXT
+    dataSheet TEXT,
+    toursAndLocations TEXT,
+    distanceMatrix TEXT,
+    name TEXT
     )"""
 
     try:
@@ -28,48 +32,31 @@ def create_table(conn):
         print(e)
     
 def insert(conn, data):
-    InsertSql = """INSERT INTO testTemplate2(workSheetData)
-    VALUES(?)"""
+    InsertSql = """INSERT INTO templateModel(dataSheet, toursAndLocations, distanceMatrix, name)
+    VALUES(?, ?, ?, ?)"""
 
     cursor = conn.cursor()
     cursor.execute(InsertSql, data)
     conn.commit()
     print("data added")
     return cursor.lastrowid
-    
-
-def selectTemplates(conn):
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM testTemplate2")
-    conn.commit()
-
-    rows = cursor.fetchall()
-    return rows[0]
 
 def deleteTemplate(conn, id):
     cursor = conn.cursor()
-    cursor.execute("DELETE FROM testTemplate2 WHERE id=?", (id,))
+    cursor.execute("DELETE FROM templateModel WHERE id=?", (id,))
 
-conn = create_connection("test.db")
+
 
 #with conn:
     #create_table(conn)
 
     #insert(conn, ['1,2,3', '4,5,6', '7,8,9'])
 
-    #selectTemplates(conn)
 
-    #deleteTemplate(conn, 1)
-
-
-
-
-def saveTemplate(excelFile):
-    wb = load_workbook("/Users/user-1/Desktop/TestDispatchGenerator.xlsx")
+def getWorksheetFromExcel(wb, workSheetName):
     dataList = []
-
     countSinceData = 0
-    for column in wb["Data Sheet"].iter_cols():
+    for column in wb[workSheetName].iter_cols():
         dataList.append([])
         for cell in column:
             if cell.value != None:
@@ -89,29 +76,21 @@ def saveTemplate(excelFile):
             dataString += f"{cell}"
             dataString += "~"
         dataString = dataString[1:-1]
-    
+    return dataString
 
 
+def saveTemplate(excelFile, templateName):
+
+    wb = load_workbook(excelFile)
     with conn:
-        #create_table(conn)
-        #insert(conn, [dataString,])
-        newDataList = selectTemplates(conn)
-        newDataList = dataString.split("@")
-        for i in range(len(newDataList)):
-            newDataList[i] = newDataList[i].split("~")
-        
-
-        newTemplate = wb.create_sheet("Example")
+        dataSheetString = getWorksheetFromExcel(wb, "Data Sheet")
+        ToursAndLocationsString = getWorksheetFromExcel(wb, "Tours and Locations")
+        DistanceMatrixString = getWorksheetFromExcel(wb, "Distance Matrix")
+        insert(conn, [dataSheetString, ToursAndLocationsString, DistanceMatrixString, templateName])
 
 
 
-        for col_idx, col_data in enumerate(newDataList, start=1):
-            for row_idx, value in enumerate(col_data, start=1):
-                if value == "None":
-                    newTemplate.cell(row=row_idx, column=col_idx, value=None)
-                else:
-                    newTemplate.cell(row=row_idx, column=col_idx, value=value)
-        wb.save("/Users/user-1/Desktop/TestDispatchGenerator.xlsx")
-
-
-saveTemplate("hi")
+#conn = create_connection("test.db")
+#with conn:
+    #create_table(conn)
+    #saveTemplate("/Users/user-1/Desktop/TestDispatchGenerator.xlsx", "firstTemplate")

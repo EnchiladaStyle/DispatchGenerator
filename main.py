@@ -5,7 +5,7 @@ from CreateDataModel import createDataModel
 from VRP import VRP
 from format_solution import format_solution
 from createDispatch import createDispatch
-from generateTemplate import generateTemplate
+from MasterTemplate import generateTemplate
 
 class FileDropTarget(wx.FileDropTarget):
     def __init__(self, window):
