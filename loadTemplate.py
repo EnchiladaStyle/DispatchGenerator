@@ -1,6 +1,7 @@
 import sqlite3
 from openpyxl import load_workbook
 from styleTemplate import styleTemplate
+from datetime import datetime
 
 def selectTemplates(conn):
     cursor = conn.cursor()
@@ -26,6 +27,8 @@ def getTemplateFromSQL(conn, id):
     conn.commit()
 
     rows = cursor.fetchall()
+
+    print(rows[0][0][:10])
     return rows[0]
 
 def parseStringToLists(dataString):
@@ -37,12 +40,26 @@ def parseStringToLists(dataString):
 
     return solution
 
+def isTime(string):
+    formats = ['%H:%M', '%I:%M%p', '%I:%M %p']
+    for fmt in formats:
+        try:
+            datetime.strptime(string, fmt)
+            return True
+        except ValueError:
+            continue
+    return False
+
 def populateWorkSheet(sheet, newDataList):
 
     for col_idx, col_data in enumerate(newDataList, start=1):
         for row_idx, value in enumerate(col_data, start=1):
             if value == "None":
                 sheet.cell(row=row_idx, column=col_idx, value=None)
+            elif value.isdigit():
+                sheet.cell(row=row_idx, column=col_idx, value=int(value)) 
+            elif isTime(value):
+                 sheet.cell(row=row_idx, column=col_idx, value=datetime.strptime(value, '%H:%M'))
             else:
                 sheet.cell(row=row_idx, column=col_idx, value=value)
 
@@ -63,7 +80,7 @@ def loadTemplate(excelFile):
         wb.remove(sheet)
 
     with conn:
-        workSheetStrings = getTemplateFromSQL(conn, 1)
+        workSheetStrings = getTemplateFromSQL(conn, 5)
 
     newDataSheetList = parseStringToLists(workSheetStrings[0])
     newToursAndLocationsList = parseStringToLists(workSheetStrings[1])
