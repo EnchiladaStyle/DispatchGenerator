@@ -41,7 +41,7 @@ class FileDropTarget(wx.FileDropTarget):
         else:
             self.window.updateStatus("Insufficient Resources")
 
-class MyFrame(wx.Frame):
+class MainFrame(wx.Frame):
     def __init__(self):
         super().__init__(None, title='Dispatch Generator', size=(400, 200))
         panel = wx.Panel(self)
@@ -57,14 +57,22 @@ class MyFrame(wx.Frame):
         self.templateButton = wx.Button(panel, label="Retrieve Template")
         self.templateButton.Bind(wx.EVT_BUTTON, dropTarget.retrieveTemplate)
 
+        self.templateManagerButton = wx.Button(panel, label="Template Manager")
+        self.templateManagerButton.Bind(wx.EVT_BUTTON, self.onOpenTemplateManager)
+
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.sizer.Add(self.generateButton, 0, wx.ALL, 5)
         self.sizer.Add(self.templateButton, 0, wx.ALL, 5)
+        self.sizer.Add(self.templateManagerButton, 0, wx.ALL, 5)
 
 
         panel.SetSizerAndFit(self.sizer)
         self.Bind(wx.EVT_CLOSE, self.on_close)
 
+    def onOpenTemplateManager(self, event):
+        self.templateManager = TemplateManager(self)
+        self.Hide()
+        self.templateManager.Show()
 
     def updateStatus(self, message):
         self.label.SetLabel(message)
@@ -73,11 +81,38 @@ class MyFrame(wx.Frame):
         os._exit(0)
 
 
+class TemplateManager(wx.Frame):
+    def __init__(self, mainFrame, *args, **kw):
+        super(TemplateManager, self).__init__(*args, **kw)
+        self.mainFrame = mainFrame
+        self.createView()
+
+    def createView(self):
+        panel = wx.Panel(self)
+        '''vbox = wx.BoxSizer(wx.VERTICAL)
+
+        st = wx.StaticText(panel, label="this is the template manager")
+        vbox.Add(st, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
+
+        self.homeButton = wx.Button(panel, label="Home Button")
+        self.homeButton.Bind(wx.EVT_BUTTON, self.onHomeButton)
+        vbox.Add(self.homeButton, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
+
+        panel.SetSizer(vbox)
+        self.SetSize(300, 200)
+        self.SetTitle("Template Manager")'''
+    
+    def onHomeButton(self, event):
+        self.Hide()
+        self.mainFrame.Show()
+        
+
+
 
 class MyApp(wx.App):
     def OnInit(self):
-        frame = MyFrame()
-        frame.Show()
+        mainFrame = MainFrame()
+        mainFrame.Show()
         return True
 
 if __name__ == "__main__":
