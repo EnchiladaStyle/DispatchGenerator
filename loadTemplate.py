@@ -8,8 +8,8 @@ def selectTemplates(conn):
     cursor.execute("SELECT * FROM templateModel")
     conn.commit()
 
-    rows = cursor.fetchall()
-    return rows[0]
+    templates = cursor.fetchall()
+    return templates
 
 def create_connection(db_file):
 
@@ -28,7 +28,6 @@ def getTemplateFromSQL(conn, id):
 
     rows = cursor.fetchall()
 
-    print(rows[0][0][:10])
     return rows[0]
 
 def parseStringToLists(dataString):
@@ -64,7 +63,7 @@ def populateWorkSheet(sheet, newDataList):
                 sheet.cell(row=row_idx, column=col_idx, value=value)
 
 
-def loadTemplate(excelFile):
+def loadTemplate(excelFile, id):
 
     wb = load_workbook(excelFile)
     conn = create_connection("test.db")
@@ -80,7 +79,7 @@ def loadTemplate(excelFile):
         wb.remove(sheet)
 
     with conn:
-        workSheetStrings = getTemplateFromSQL(conn, 5)
+        workSheetStrings = getTemplateFromSQL(conn, 7)
 
     newDataSheetList = parseStringToLists(workSheetStrings[0])
     newToursAndLocationsList = parseStringToLists(workSheetStrings[1])
