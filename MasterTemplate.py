@@ -52,9 +52,7 @@ def generateTemplate(excelFile):
         DataSheet[f"E{counter}"].value = f"=IF(C{counter}<>\"y\", IFERROR(INDEX(\'Tours and Locations\'!$B$1:$B$100, MATCH(B{counter}, \'Tours and Locations\'!$A$1:$A$100, 0)), \"\"), IFERROR(INDEX($K$1:$K$100, MATCH(A{counter}, $J$1:$J$100, 0)), \"\"))"
 
         DataSheet[f"F{counter}"].value = f"=IF(C{counter}=\"y\", IFERROR(G{counter} - TIME(0, IFERROR(INDEX(\'Distance Matrix\'!$B$2:$AN$40, MATCH(D{counter}, \'Distance Matrix\'!$A$2:$A$40, 0), MATCH(E{counter}, \'Distance Matrix\'!$B$1:$AN$1, 0)), INDEX(\'Distance Matrix\'!$B$2:$AN$40, MATCH(E{counter}, \'Distance Matrix\'!$A$2:$A$40, 0), MATCH(D{counter}, \'Distance Matrix\'!$B$1:$AN$1, 0))), 0), \"\"), \"\")"
-        DataSheet[f"F{counter}"].number_format = 'hh:mm'
         DataSheet[f"G{counter}"].value = f"=IF(C{counter}<>\"y\", IFERROR(F{counter} + TIME(0, IFERROR(INDEX(\'Distance Matrix\'!$B$2:$AN$40, MATCH(D{counter}, \'Distance Matrix\'!$A$2:$A$40, 0), MATCH(E{counter}, \'Distance Matrix\'!$B$1:$AN$1, 0)), INDEX(\'Distance Matrix\'!$B$2:$AN$40, MATCH(E{counter}, \'Distance Matrix\'!$A$2:$A$40, 0), MATCH(D{counter}, \'Distance Matrix\'!$B$1:$AN$1, 0))), 0), \"\"), \"\")"
-        DataSheet[f"G{counter}"].number_format = 'hh:mm'
         counter += 1
 
     counter = 2
