@@ -43,6 +43,12 @@ def styleTemplate(excelFile):
     DataSheet["O1"].fill = PatternFill(start_color="D3D3D3", end_color="CCFFCC", fill_type="solid")
     DataSheet["R1"].fill = PatternFill(start_color="D3D3D3", end_color="CCFFCC", fill_type="solid")
 
+    counter = 2
+    while counter < 200:
+        DataSheet[f"F{counter}"].number_format = 'hh:mm'
+        DataSheet[f"G{counter}"].number_format = 'hh:mm'
+        counter += 1
+
     border = Border(
         left=Side(border_style="thin", color="000000"),
         right=Side(border_style="thin", color="000000"),
