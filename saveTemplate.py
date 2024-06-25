@@ -1,6 +1,5 @@
 import sqlite3
 from openpyxl import load_workbook
-from loadTemplate import loadTemplate
 
 def create_connection(db_file):
 
@@ -36,7 +35,7 @@ def insert(conn, data):
     VALUES(?, ?, ?, ?)"""
 
     cursor = conn.cursor()
-    cursor.execute(InsertSql, data)
+    request = cursor.execute(InsertSql, data)
     conn.commit()
     print("data added")
     return cursor.lastrowid
@@ -45,52 +44,54 @@ def deleteTemplate(conn, id):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM templateModel WHERE id=?", (id,))
 
-
-
-#with conn:
-    #create_table(conn)
-
-    #insert(conn, ['1,2,3', '4,5,6', '7,8,9'])
-
-
 def getWorksheetFromExcel(wb, workSheetName):
     dataList = []
     countSinceData = 0
     for column in wb[workSheetName].iter_cols():
+
         dataList.append([])
-        for cell in column:
+        
+        for cell in column:         
+
             if cell.value != None:
                 countSinceData = 0
             elif cell.value == None:
                 countSinceData += 1
             
-            dataList[-1].append(cell.value)
+            if (column[0].value == "pick up time" or column[0].value == "Drop Off Time") and cell.value != "pick up time" and cell.value != "Drop Off Time":
+                if len(str(cell.value).split(":")) == 3:
+                    dataList[-1].append(str(cell.value)[:-3])
+                else:
+                    dataList[-1].append(cell.value)
+            else:
+                dataList[-1].append(cell.value)
         if countSinceData > 3:
             dataList[-1] = dataList[-1][:1-countSinceData]        
         dataList[-1].append(None)
-
     dataString = ""
     for column in dataList:
         dataString += "@"
         for cell in column:
             dataString += f"{cell}"
             dataString += "~"
-        dataString = dataString[1:-1]
+    dataString = dataString[1:-1]
     return dataString
 
 
-def saveTemplate(excelFile, templateName):
+def saveTemplate(excelFile, templateName, conn):
 
     wb = load_workbook(excelFile)
     with conn:
         dataSheetString = getWorksheetFromExcel(wb, "Data Sheet")
         ToursAndLocationsString = getWorksheetFromExcel(wb, "Tours and Locations")
         DistanceMatrixString = getWorksheetFromExcel(wb, "Distance Matrix")
-        insert(conn, [dataSheetString, ToursAndLocationsString, DistanceMatrixString, templateName])
+
+        print(dataSheetString[:10])
+        #insert(conn, [dataSheetString, ToursAndLocationsString, DistanceMatrixString, templateName])
 
 
 
-#conn = create_connection("test.db")
-#with conn:
+conn = create_connection("test.db")
+with conn:
     #create_table(conn)
-    #saveTemplate("/Users/user-1/Desktop/TestDispatchGenerator.xlsx", "firstTemplate")
+    saveTemplate("/Users/user-1/Desktop/TestDispatchGenerator.xlsx", "firstTemplate", conn)
