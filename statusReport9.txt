@@ -1,0 +1,27 @@
+Name: Christopher Jones
+Project Title: Tour Bus Dispatch Generator
+
+Team Members: Christopher Jones
+
+Overall Status: Working on UI
+
+Number of hours worked since last update: 10
+Number of hours worked on the project thus far: 85
+Total number of hours anticipated for completion: 130
+
+Accomplishments:
+I Finished adding excel formulas that will auto populate cells with locations and travel times based on input the 
+user can copy and paste from the cruise ship request. I wrote the logic to enable the program to read from the excel
+file to format the data to go into the algorithm. 
+
+Challenges:
+Some of what I did this week was working in the prototype but needed to be changed a lot to work with the new template structure.
+
+Plans / Goals for next week:
+Learn more about SQLite and come up with a plan to save templates. Start working on this functionality
+
+
+Accountability plan: (What is your plan to keep yourself honest and follow through with the goals that you have outlined?)
+Work for 2 hours per day for 5 days out of the week. If a miss a day make up for it on Saturday.
+
+Other comments:
