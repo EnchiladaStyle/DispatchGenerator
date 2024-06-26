@@ -44,20 +44,76 @@ class FileDropTarget(wx.FileDropTarget):
 class MainFrame(wx.Frame):
     def __init__(self):
         super().__init__(None, title='Dispatch Generator', size=(400, 200))
-        panel = wx.Panel(self)
-        self.label = wx.StaticText(panel, label="Drop an Excel file here...", pos=(50, 80))
+        self.panel = None
+        self.sizer = wx.BoxSizer(wx.VERTICAL)
+        self.SetSizer(self.sizer)
+        self.showGeneratorManager()
+
+    def showGeneratorManager(self):
+        if self.panel:
+            self.panel.Destroy()
+        self.panel = GeneratorManager(self)
+        self.sizer.Add(self.panel, 1, wx.EXPAND)
+        self.Layout()
+
+    def showTemplateManager(self):
+        if self.panel:
+            self.panel.Destroy()
+        self.panel = TemplateManager(self)
+        self.sizer.Add(self.panel, 1, wx.EXPAND)
+        self.Layout()
+
+
+    def on_close(self, event):
+        os._exit(0)
+
+
         
-        # Set up the file drop target
+
+
+
+
+class TemplateManager(wx.Panel):
+    def __init__(self, parent, *args, **kw):
+        super(TemplateManager, self).__init__(parent, *args, **kw)
+        self.parent = parent
+        self.InitUI()
+
+    def InitUI(self):
+        
+        self.homeButton = wx.Button(self, label="Home")
+        self.homeButton.Bind(wx.EVT_BUTTON, self.goHome)
+
+        self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.sizer.Add(self.homeButton, 0, wx.ALL, 5)
+
+        self.SetSizer(self.sizer)
+        self.Layout()
+
+    def goHome(self, event):
+        self.parent.showGeneratorManager()
+
+
+
+
+class GeneratorManager(wx.Panel):
+    def __init__(self, parent, *args, **kw):
+        super(GeneratorManager, self).__init__(parent, *args, **kw)
+        self.parent = parent
+        self.InitUI()
+    
+    def InitUI(self):
         dropTarget = FileDropTarget(self)
         self.SetDropTarget(dropTarget)
+        self.label = wx.StaticText(self, label="Drop an Excel file here...", pos=(50, 80))
 
-        self.generateButton = wx.Button(panel, label="Generate Dispatch")
+        self.generateButton = wx.Button(self, label="Generate Dispatch")
         self.generateButton.Bind(wx.EVT_BUTTON, dropTarget.generate)
 
-        self.templateButton = wx.Button(panel, label="Retrieve Template")
+        self.templateButton = wx.Button(self, label="Retrieve Template")
         self.templateButton.Bind(wx.EVT_BUTTON, dropTarget.retrieveTemplate)
 
-        self.templateManagerButton = wx.Button(panel, label="Template Manager")
+        self.templateManagerButton = wx.Button(self, label="Template Manager")
         self.templateManagerButton.Bind(wx.EVT_BUTTON, self.onOpenTemplateManager)
 
         self.sizer = wx.BoxSizer(wx.HORIZONTAL)
@@ -65,48 +121,17 @@ class MainFrame(wx.Frame):
         self.sizer.Add(self.templateButton, 0, wx.ALL, 5)
         self.sizer.Add(self.templateManagerButton, 0, wx.ALL, 5)
 
+        self.SetSizer(self.sizer)
+        self.Layout()
 
-        panel.SetSizerAndFit(self.sizer)
-        self.Bind(wx.EVT_CLOSE, self.on_close)
 
     def onOpenTemplateManager(self, event):
-        self.templateManager = TemplateManager(self)
-        self.Hide()
-        self.templateManager.Show()
+        self.parent.showTemplateManager()
+        
 
     def updateStatus(self, message):
         self.label.SetLabel(message)
-
-    def on_close(self, event):
-        os._exit(0)
-
-
-class TemplateManager(wx.Frame):
-    def __init__(self, mainFrame, *args, **kw):
-        super(TemplateManager, self).__init__(*args, **kw)
-        self.mainFrame = mainFrame
-        self.createView()
-
-    def createView(self):
-        panel = wx.Panel(self)
-        '''vbox = wx.BoxSizer(wx.VERTICAL)
-
-        st = wx.StaticText(panel, label="this is the template manager")
-        vbox.Add(st, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
-
-        self.homeButton = wx.Button(panel, label="Home Button")
-        self.homeButton.Bind(wx.EVT_BUTTON, self.onHomeButton)
-        vbox.Add(self.homeButton, flag=wx.ALIGN_CENTER | wx.TOP, border=10)
-
-        panel.SetSizer(vbox)
-        self.SetSize(300, 200)
-        self.SetTitle("Template Manager")'''
-    
-    def onHomeButton(self, event):
-        self.Hide()
-        self.mainFrame.Show()
         
-
 
 
 class MyApp(wx.App):
@@ -118,3 +143,4 @@ class MyApp(wx.App):
 if __name__ == "__main__":
     app = MyApp()
     app.MainLoop()
+
