@@ -42,8 +42,29 @@ class FileDropTarget(wx.FileDropTarget):
             self.window.updateStatus("Insufficient Resources")
 
 class MainFrame(wx.Frame):
-    def __init__(self):
-        super().__init__(None, title='Dispatch Generator', size=(400, 200))
+    def __init__(self, *args, **kw):
+        super(MainFrame, self).__init__(*args, **kw)
+
+        mainPanel = wx.Panel(self)
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+
+        menuPanel = GeneratorManager(mainPanel)
+        right_panel = wx.Panel(mainPanel)
+
+        right_panel.SetBackgroundColour(wx.Colour(250, 200, 200))
+
+        hbox.Add(menuPanel, 2, wx.EXPAND | wx.ALL, 5)
+        hbox.Add(right_panel, 1, wx.EXPAND | wx.ALL, 5)
+
+        mainPanel.SetSizer(hbox)
+
+        self.SetSize((600, 600))
+        self.Centre()
+
+
+
+    '''def __init__(self):
+        super().__init__(None, title='Dispatch Generator', size=(600, 600))
         self.panel = None
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.SetSizer(self.sizer)
@@ -65,12 +86,7 @@ class MainFrame(wx.Frame):
 
 
     def on_close(self, event):
-        os._exit(0)
-
-
-        
-
-
+        os._exit(0)'''
 
 
 class TemplateManager(wx.Panel):
@@ -136,8 +152,8 @@ class GeneratorManager(wx.Panel):
 
 class MyApp(wx.App):
     def OnInit(self):
-        mainFrame = MainFrame()
-        mainFrame.Show()
+        self.frame = MainFrame(None, title="oh yeah")
+        self.frame.Show()
         return True
 
 if __name__ == "__main__":
