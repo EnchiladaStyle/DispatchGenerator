@@ -61,6 +61,15 @@ class MainFrame(wx.Frame):
         self.SetSize((600, 600))
         self.Centre()
 
+        drop_target = FileDropTarget(self)
+        right_panel.SetDropTarget(drop_target)
+        self.right_panel = right_panel
+
+        self.label = wx.StaticText(self.right_panel, label="Drop an Excel file here...", pos=(50, 80))
+
+    def updateStatus(self, message):
+        self.label.SetLabel(message)
+
 
 
     '''def __init__(self):
@@ -144,9 +153,6 @@ class GeneratorManager(wx.Panel):
     def onOpenTemplateManager(self, event):
         self.parent.showTemplateManager()
         
-
-    def updateStatus(self, message):
-        self.label.SetLabel(message)
         
 
 
