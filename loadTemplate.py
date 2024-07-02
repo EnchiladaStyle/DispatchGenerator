@@ -3,9 +3,10 @@ from openpyxl import load_workbook
 from styleTemplate import styleTemplate
 from datetime import datetime
 
-def selectTemplates(conn):
+def selectTemplates():
+    conn = create_connection("test.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM templateModel")
+    cursor.execute("SELECT name, id FROM templateModel")
     conn.commit()
 
     templates = cursor.fetchall()
@@ -79,7 +80,7 @@ def loadTemplate(excelFile, id):
         wb.remove(sheet)
 
     with conn:
-        workSheetStrings = getTemplateFromSQL(conn, 7)
+        workSheetStrings = getTemplateFromSQL(conn, id)
 
     newDataSheetList = parseStringToLists(workSheetStrings[0])
     newToursAndLocationsList = parseStringToLists(workSheetStrings[1])
@@ -98,5 +99,5 @@ def loadTemplate(excelFile, id):
 
     styleTemplate(excelFile)
 
-loadTemplate("/Users/user-1/Desktop/BlankWorkbook.xlsx")
+#loadTemplate("/Users/user-1/Desktop/BlankWorkbook.xlsx")
     
