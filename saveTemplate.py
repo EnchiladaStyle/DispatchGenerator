@@ -78,8 +78,9 @@ def getWorksheetFromExcel(wb, workSheetName):
     return dataString
 
 
-def saveTemplate(excelFile, templateName, conn):
+def saveTemplate(excelFile, templateName):
 
+    conn = create_connection("test.db")
     wb = load_workbook(excelFile)
     with conn:
         dataSheetString = getWorksheetFromExcel(wb, "Data Sheet")
@@ -87,11 +88,9 @@ def saveTemplate(excelFile, templateName, conn):
         DistanceMatrixString = getWorksheetFromExcel(wb, "Distance Matrix")
 
         print(dataSheetString[:10])
-        #insert(conn, [dataSheetString, ToursAndLocationsString, DistanceMatrixString, templateName])
+        insert(conn, [dataSheetString, ToursAndLocationsString, DistanceMatrixString, templateName])
 
-
-
-conn = create_connection("test.db")
-with conn:
-    #create_table(conn)
-    saveTemplate("/Users/user-1/Desktop/TestDispatchGenerator.xlsx", "firstTemplate", conn)
+'''conn = create_connection("test.db")
+cursor = conn.cursor()
+cursor.execute("DELETE FROM templateModel")
+conn.commit()'''
