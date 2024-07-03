@@ -7,7 +7,7 @@ from format_solution import format_solution
 from createDispatch import createDispatch
 from MasterTemplate import generateTemplate
 from loadTemplate import selectTemplates, loadTemplate
-from saveTemplate import saveTemplate
+from saveTemplate import saveTemplate, deleteTemplateFromDatabase
 
 class MainMenu(wx.Panel):
     def __init__(self, parent, dropTarget, *args, **kw):
@@ -33,6 +33,7 @@ class MainMenu(wx.Panel):
         self.newTemplateButton.Bind(wx.EVT_BUTTON, self.saveNewTemplate)
 
         self.deleteTemplateButton = wx.Button(self, label="Delete Template")
+        self.deleteTemplateButton.Bind(wx.EVT_BUTTON, self.deleteTemplate)
 
         verticalHousing = wx.BoxSizer(wx.VERTICAL)
         topMenu = wx.BoxSizer(wx.VERTICAL)
@@ -114,3 +115,38 @@ class MainMenu(wx.Panel):
         button = event.GetEventObject()
         self.currentTemplateLabel.SetLabel(f"   {button.template[0]}")
         self.currentTemplate = button.template
+
+    def deleteTemplate(self, event):
+        print("trying to delete template")
+        self.confirmationPanel = wx.Panel(self)
+        confirmationText = wx.StaticText(self.confirmationPanel, label="Are you sure you want to delete this template?")
+
+        yesButton = wx.Button(self.confirmationPanel, label="Yes")
+        yesButton.Bind(wx.EVT_BUTTON, self.onConfirmDelete)
+        noButton = wx.Button(self.confirmationPanel, label="No")
+        noButton.Bind(wx.EVT_BUTTON, self.onCancelDelete)
+
+        vbox = wx.BoxSizer(wx.VERTICAL)
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+
+        vbox.Add(confirmationText, flag=wx.ALL | wx.CENTER, border=10)
+        hbox.Add(yesButton, flag=wx.ALL | wx.CENTER, border=10)
+        hbox.Add(noButton, flag=wx.ALL, border=5)
+        vbox.Add(hbox, flag=wx.ALIGN_CENTER)
+
+        self.confirmationPanel.SetSizer(vbox)
+        self.GetSizer().Add(self.confirmationPanel, flag=wx.EXPAND | wx.ALL, border=10)
+        self.Layout()
+        
+
+    def onConfirmDelete(self, event):
+        templateId = self.currentTemplate[1]
+        
+        deleteTemplateFromDatabase(templateId)
+        self.DestroyChildren()
+        self.InitUI()
+        self.Layout()
+
+    def onCancelDelete(self, event):
+        self.confirmationPanel.Destroy()
+        self.Layout()
