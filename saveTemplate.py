@@ -40,9 +40,12 @@ def insert(conn, data):
     print("data added")
     return cursor.lastrowid
 
-def deleteTemplate(conn, id):
+def deleteTemplateFromDatabase(id):
+    conn = create_connection("test.db")
     cursor = conn.cursor()
     cursor.execute("DELETE FROM templateModel WHERE id=?", (id,))
+    conn.commit()
+    conn.close()
 
 def getWorksheetFromExcel(wb, workSheetName):
     dataList = []
