@@ -8,15 +8,16 @@ def createDispatch(formattedSolution, filename):
     print("opening workbook in createDispatch")
     wb = load_workbook(filename)
     dispatchSheet = wb.create_sheet("Dispatch")
-    dispatchSheet.column_dimensions["A"].width = 11
-    dispatchSheet.column_dimensions["B"].width = 9
-    dispatchSheet.column_dimensions["C"].width = 14
+    dispatchSheet.column_dimensions["A"].width = 10
+    dispatchSheet.column_dimensions["B"].width = 6
+    dispatchSheet.column_dimensions["C"].width = 8
     dispatchSheet.column_dimensions["D"].width = 11
-    dispatchSheet.column_dimensions["E"].width = 15
-    dispatchSheet.column_dimensions["F"].width = 13
-    dispatchSheet.column_dimensions["G"].width = 11
-    dispatchSheet.column_dimensions["H"].width = 18
+    dispatchSheet.column_dimensions["E"].width = 12
+    dispatchSheet.column_dimensions["F"].width = 14
+    dispatchSheet.column_dimensions["G"].width = 15
+    dispatchSheet.column_dimensions["H"].width = 10
     dispatchSheet.column_dimensions["I"].width = 40
+    dispatchSheet.column_dimensions["J"].width = 15
 
     driverView = wb.create_sheet("Driver View")
     driverView.column_dimensions["A"].width = 11
@@ -50,20 +51,22 @@ def createDispatch(formattedSolution, filename):
     dispatchSheet["I2"].value = "Mod & Standby"
 
     trips = []
-    dispatchSheet.append(["Driver", "Vehicle #", "Pick up Location", "Pick Up Time", "Drop Off Location", "Drop Off Time", "Passengers", "Ship", "Tour Name", "Dock Rep"])
+    tripsDriver = []
+    dispatchSheet.append(["Dock Rep", "Driver", "Vehicle #", "Pick Up Time", "Drop Off Time", "Pick Up Location", "Drop Off Location", "Passengers", "Tour Name", "Ship"])
     driverView.append(["Driver", "Vehicle #", "Pick up Location", "Pick Up Time", "Drop Off Location", "Drop Off Time", "Passengers", "Ship", "Tour Name", "Dock Rep"])
 
     for route in formattedSolution:
         i = 0
         while i < len(route["pickupLocations"]):
-            trips.append([route["driver"], route["vehicle"], route["pickupLocations"][i], route["pickupTimes"][i], route["dropoffLocations"][i], route["dropoffTimes"][i], route["passengers"][i], route["shipName"][i], route["tourName"][i], route["dockRep"][i]])
+            trips.append([route["dockRep"][i], route["driver"], route["vehicle"], route["pickupTimes"][i], route["dropoffTimes"][i], route["pickupLocations"][i], route["dropoffLocations"][i], route["passengers"][i], route["tourName"][i], route["shipName"][i]])
+            tripsDriver.append([route["driver"], route["vehicle"], route["pickupLocations"][i], route["pickupTimes"][i], route["dropoffLocations"][i], route["dropoffTimes"][i], route["passengers"][i], route["shipName"][i], route["tourName"][i], route["dockRep"][i]])
             i += 1
 
     sorted_trips = sorted(trips, key=lambda x: x[3])
     for trip in sorted_trips:
         dispatchSheet.append(trip)
 
-    groupedByVehicle = groupby(sorted(trips, key=itemgetter(1)), key=itemgetter(1))
+    groupedByVehicle = groupby(sorted(tripsDriver, key=itemgetter(1)), key=itemgetter(1))
     
     sortedGroupedByVehicle = []
     for key, group in groupedByVehicle:
@@ -75,7 +78,7 @@ def createDispatch(formattedSolution, filename):
 
     for cell in dispatchSheet["D"]:
         cell.number_format = "hh:mm"
-    for cell in dispatchSheet["F"]:
+    for cell in dispatchSheet["E"]:
         cell.number_format = "hh:mm"
     for cell in driverView["D"]:
         cell.number_format = "hh:mm"
