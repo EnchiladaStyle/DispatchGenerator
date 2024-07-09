@@ -61,6 +61,18 @@ def styleTemplate(excelFile):
             cell.border = border
             break
 
+    counter = 1
+    distanceMatrix = wb["Distance Matrix"]
+    for col in distanceMatrix.iter_cols():
+        for cell in col:
+            cell.border = border
+            distanceMatrix.column_dimensions[cell.column_letter].width = 14
+            cell.fill = PatternFill(start_color="D3D3D3", end_color="CCFFCC", fill_type="solid")
+            distanceMatrix[f"A{counter}"].fill = PatternFill(start_color="D3D3D3", end_color="CCFFCC", fill_type="solid")
+            distanceMatrix[f"A{counter}"].border = border
+            counter += 1
+            break
+
     ToursAndLocations = wb["Tours and Locations"]
     ToursAndLocations.column_dimensions["A"].width = 43
     ToursAndLocations.column_dimensions["B"].width = 26
