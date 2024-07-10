@@ -98,18 +98,23 @@ class MainMenu(wx.Panel):
         if self.currentTemplate[0] == "Master Template":
             generateTemplate(self.dropTarget.filename)
         else:
-            print(f"data: {self.currentTemplate[1]}")
             loadTemplate(self.dropTarget.filename, int(self.currentTemplate[1]))
 
     def generate(self, event):
         data = createDataModel(self.dropTarget.filename)
-        self.solution = VRP(data)
+
+        if data["status"] == "Ready":
+            self.solution = VRP(data)
+        else:
+            self.errorMessage(data["status"])
+            return
+        
         if self.solution[3]:
             formattedSolution = format_solution(self.solution[0], self.solution[1], self.solution[2], self.solution[3])
             createDispatch(formattedSolution, self.dropTarget.filename)
                 
         else:
-            self.window.updateStatus("Insufficient Resources")
+            self.errorMessage("Insufficient Resources")
 
     def onSelectTemplate(self, event):
         button = event.GetEventObject()
@@ -122,7 +127,7 @@ class MainMenu(wx.Panel):
 
         vbox = wx.BoxSizer(wx.VERTICAL)
         confirmationText = wx.StaticText(self.confirmationDialog, label="Are you sure you want to delete this template?")
-        vbox.Add(confirmationText, flag=wx.ALL | wx.Center, border=10)
+        vbox.Add(confirmationText, flag=wx.ALL | wx.CENTER, border=10)
 
         hbox = wx.BoxSizer(wx.HORIZONTAL)
         yesButton = wx.Button(self.confirmationDialog, label="Yes")
@@ -149,7 +154,29 @@ class MainMenu(wx.Panel):
         self.confirmationDialog.EndModal(wx.ID_OK)
         self.DestroyChildren()
         self.InitUI()
-        
 
     def onCancelDelete(self, event):
         self.confirmationDialog.EndModal(wx.ID_YES)
+
+    def errorMessage(self, error):
+        self.errorDialog = wx.Dialog(self, title=f"Error", size=(300, 150))
+
+        vbox = wx.BoxSizer(wx.VERTICAL)
+        confirmationText = wx.StaticText(self.errorDialog, label=f"Error: {error}")
+        vbox.Add(confirmationText, flag=wx.ALL | wx.CENTER, border=10)
+
+        hbox = wx.BoxSizer(wx.HORIZONTAL)
+        okButton = wx.Button(self.errorDialog, label="ok")
+
+        hbox.Add(okButton, flag=wx.ALL | wx.CENTER, border=10)
+        vbox.Add(hbox, flag=wx.ALIGN_CENTER)
+
+        self.errorDialog.SetSizer(vbox)
+
+        okButton.Bind(wx.EVT_BUTTON, self.onAcknowledgeError)
+
+        self.errorDialog.CentreOnParent()
+        self.errorDialog.ShowModal()
+
+    def onAcknowledgeError(self, event):
+        self.errorDialog.EndModal(wx.ID_YES)
