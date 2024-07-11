@@ -1,5 +1,6 @@
 import wx
 import os
+import sys
 from openpyxl import load_workbook
 from CreateDataModel import createDataModel
 from VRP import VRP
@@ -37,8 +38,24 @@ class MainFrame(wx.Frame):
 
         self.label = wx.StaticText(self.right_panel, label="Drop an Excel file here...", pos=(50, 80))
 
+        self.Bind(wx.EVT_CLOSE, self.onClose)
+
     def updateStatus(self, message):
         self.label.SetLabel(message)
+
+    def onClose(self, event):
+        print("got to exit")
+
+        self.right_panel.SetDropTarget(None)
+        
+        if not hasattr(self, 'is_destroyed'):
+            self.is_destroyed = True
+        
+        wx.CallAfter(self.Destroy)
+        wx.CallAfter(sys.exit)
+        event.Skip()
+        self.Destroy()
+        
 
 class MyApp(wx.App):
     def OnInit(self):
@@ -49,4 +66,6 @@ class MyApp(wx.App):
 if __name__ == "__main__":
     app = MyApp()
     app.MainLoop()
+    print("ending")
+    app.Destroy()
 
