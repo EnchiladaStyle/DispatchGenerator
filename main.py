@@ -46,17 +46,9 @@ class MainFrame(wx.Frame):
     def onClose(self, event):
         print("got to exit")
 
-        self.right_panel.SetDropTarget(None)
-        
-        if not hasattr(self, 'is_destroyed'):
-            self.is_destroyed = True
-        
-        wx.CallAfter(self.Destroy)
-        wx.CallAfter(sys.exit)
-        event.Skip()
         self.Destroy()
+        os._exit(0)
         
-
 class MyApp(wx.App):
     def OnInit(self):
         self.frame = MainFrame(None, title="Easy Dispatch")
