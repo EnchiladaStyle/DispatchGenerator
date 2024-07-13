@@ -70,7 +70,7 @@ class MainMenu(wx.Panel):
 
     def saveNewTemplate(self, event):
 
-        nameBox = wx.Dialog(self, title="Enter Name", size=(250, 150))
+        nameBox = wx.Dialog(self.parent, title="Enter Name", size=(250, 150))
         nameBox.CentreOnParent()
         askNamePanel = wx.Panel(nameBox)
 
@@ -123,7 +123,7 @@ class MainMenu(wx.Panel):
 
     def deleteTemplate(self, event):
 
-        self.confirmationDialog = wx.Dialog(self, title="confirm Delete", size=(300, 150))
+        self.confirmationDialog = wx.Dialog(self.parent, title="confirm Delete", size=(300, 150))
 
         vbox = wx.BoxSizer(wx.VERTICAL)
         confirmationText = wx.StaticText(self.confirmationDialog, label="Are you sure you want to delete this template?")
@@ -159,7 +159,7 @@ class MainMenu(wx.Panel):
         self.confirmationDialog.EndModal(wx.ID_YES)
 
     def errorMessage(self, error):
-        self.errorDialog = wx.Dialog(self, title=f"Error", size=(300, 150))
+        self.errorDialog = wx.Dialog(self.parent, title=f"Error", size=(300, 150))
 
         vbox = wx.BoxSizer(wx.VERTICAL)
         confirmationText = wx.StaticText(self.errorDialog, label=f"Error: {error}")
