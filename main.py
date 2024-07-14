@@ -44,8 +44,6 @@ class MainFrame(wx.Frame):
         self.label.SetLabel(message)
 
     def onClose(self, event):
-        print("got to exit")
-
         self.Destroy()
         os._exit(0)
         
