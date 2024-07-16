@@ -2,7 +2,6 @@
 from openpyxl import load_workbook
 from createDistanceMatrix import createDistanceMatrix
 
-
 def createDataModel(excelFile):
 
     print("opening workbook in CreateDataModel")
@@ -78,8 +77,6 @@ def createDataModel(excelFile):
         counter += 1
     for ship in ships:
         dockReps.append(dockRepMatches[ship])
-    
-
 
     TravelTimes = createDistanceMatrix(wb['Distance Matrix'])
     
@@ -90,11 +87,6 @@ def createDataModel(excelFile):
             row.append(TravelTimes[location][location2]//5)
         distanceMatrix.append(row)
 
-
-    
-
-
-    
     pickups_deliveries = []
     i = 0
     while i < halfway:
@@ -106,11 +98,23 @@ def createDataModel(excelFile):
         time_windows.append((time - 1, time + 1))
     time_windows.append((0, 288))
 
-    print("closing workbook in createDataModel")
     wb.close()
     
+    if distanceMatrix == []:
+        data["status"] = "No Distance Matrix Provided"
+    elif locations == []:
+        data["status"] = "No Locations Provided"
+    elif pickups_deliveries == [] or time_windows == []:
+        data["status"] = "Missing Data In Request"
+    elif  vehicles == []:
+        data["status"] = "No Vehicles Available"
+    elif passengerCounts == []:
+        data["status"] = "Passenger Counts Required"
+    elif vehicleCapacities == []:
+        data["status"] = "Vehicles Must Have Capacities"
+    else:
+        data["status"] = "Ready"
 
-    print("\n\n\n\n\n\n\n")
     data["time_matrix"] = distanceMatrix
     data["locations"] = locations
     data["pickups_deliveries"] = pickups_deliveries
@@ -126,7 +130,6 @@ def createDataModel(excelFile):
     data["tourNames"] = tourNames
     data["dockReps"] = dockReps
 
-    print(data)
     return data
 
 
