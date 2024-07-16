@@ -5,11 +5,12 @@ from datetime import datetime
 
 def selectTemplates():
     conn = create_connection("test.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT name, id FROM templateModel")
-    conn.commit()
+    with conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT name, id FROM templateModel")
+        templates = cursor.fetchall()
+        cursor.close()
 
-    templates = cursor.fetchall()
     return templates
 
 def create_connection(db_file):
@@ -23,11 +24,12 @@ def create_connection(db_file):
     return conn
 
 def getTemplateFromSQL(conn, id):
-    cursor = conn.cursor()
-    cursor.execute("SELECT dataSheet, toursAndLocations, distanceMatrix FROM templateModel WHERE id = ?", [id,])
-    conn.commit()
 
-    rows = cursor.fetchall()
+    with conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT dataSheet, toursAndLocations, distanceMatrix FROM templateModel WHERE id = ?", [id,])
+        rows = cursor.fetchall()
+        cursor.close()
 
     return rows[0]
 
@@ -98,6 +100,4 @@ def loadTemplate(excelFile, id):
     wb.close()
 
     styleTemplate(excelFile)
-
-#loadTemplate("/Users/user-1/Desktop/BlankWorkbook.xlsx")
     
