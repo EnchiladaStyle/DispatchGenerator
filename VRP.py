@@ -1,7 +1,6 @@
 from travelTimes import *
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp
-from format_solution import format_solution
 
 def VRP(data):
 
