@@ -2,14 +2,16 @@ import sqlite3
 from openpyxl import load_workbook
 from styleTemplate import styleTemplate
 from datetime import datetime
+from saveTemplate import create_table
 
 def selectTemplates():
     conn = create_connection("test.db")
     with conn:
+        create_table(conn)
         cursor = conn.cursor()
         cursor.execute("SELECT name, id FROM templateModel")
         templates = cursor.fetchall()
-        cursor.close()
+        cursor.close
 
     return templates
 
