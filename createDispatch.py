@@ -1,8 +1,8 @@
-from openpyxl import Workbook, load_workbook
+from openpyxl import load_workbook
 from operator import itemgetter
 from itertools import groupby
-from datetime import datetime, time
-from openpyxl.styles import PatternFill, Border, Side, Font, Alignment
+from datetime import datetime
+from openpyxl.styles import PatternFill, Border, Side, Alignment
 
 
 def checkIfTime(DateObject):
