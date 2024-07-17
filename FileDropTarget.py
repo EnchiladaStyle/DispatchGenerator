@@ -6,8 +6,6 @@ from VRP import VRP
 from format_solution import format_solution
 from createDispatch import createDispatch
 from MasterTemplate import generateTemplate
-from loadTemplate import selectTemplates, loadTemplate
-from saveTemplate import saveTemplate
 
 class FileDropTarget(wx.FileDropTarget):
     def __init__(self, window):
