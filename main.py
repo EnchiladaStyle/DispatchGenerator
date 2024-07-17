@@ -1,6 +1,5 @@
 import wx
 import os
-import sys
 from openpyxl import load_workbook
 from CreateDataModel import createDataModel
 from VRP import VRP
@@ -8,7 +7,6 @@ from format_solution import format_solution
 from createDispatch import createDispatch
 from MasterTemplate import generateTemplate
 from loadTemplate import selectTemplates, loadTemplate
-from saveTemplate import saveTemplate
 from FileDropTarget import FileDropTarget
 from MainMenu import MainMenu
 
