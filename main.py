@@ -1,6 +1,5 @@
 import wx
 import os
-from openpyxl import load_workbook
 from CreateDataModel import createDataModel
 from VRP import VRP
 from format_solution import format_solution
