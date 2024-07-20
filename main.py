@@ -1,6 +1,5 @@
 import wx
 import os
-from VRP import VRP
 from format_solution import format_solution
 from createDispatch import createDispatch
 from MasterTemplate import generateTemplate
