@@ -1,6 +1,5 @@
 import wx
 import os
-from MasterTemplate import generateTemplate
 from loadTemplate import selectTemplates, loadTemplate
 from FileDropTarget import FileDropTarget
 from MainMenu import MainMenu
