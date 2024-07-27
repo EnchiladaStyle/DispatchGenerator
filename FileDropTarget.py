@@ -1,6 +1,5 @@
 import wx
 import os
-from VRP import VRP
 
 class FileDropTarget(wx.FileDropTarget):
     def __init__(self, window):
