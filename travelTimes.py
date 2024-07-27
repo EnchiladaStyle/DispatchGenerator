@@ -1,28 +1,4 @@
 
-dock4Times = {
-    "Dock 4": 0,
-    "Dock 2": 7,
-    "Dock 1": 7,
-    "Dock 3": 7,
-    "Ward Cove": wardCoveTimes["Dock 4"],
-    "Lumberjack": 8,
-    "George Inlet": 45,
-    "Cannery": 50,
-    "Rainforest": 30,
-    "Cape Fox Lodge": 20,
-    "Saxmon": 30,
-    "Disco": 8,
-    "Taquan": 10,
-    "Jeep Base": 20,
-    "Harriot Hunt": 45,
-    "White River": 55,
-    "Adventure Carts": 35,
-    "Knudson": 40,
-    "Clover Pass": 45,
-    "Totem Byte": 35,
-    "Lighthouse": 20,
-    "Cambria": 12
-}
 
 dock3Times = {
     "Dock 3": 0,
