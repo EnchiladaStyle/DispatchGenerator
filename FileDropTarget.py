@@ -1,7 +1,6 @@
 import wx
 import os
 from VRP import VRP
-from createDispatch import createDispatch
 
 class FileDropTarget(wx.FileDropTarget):
     def __init__(self, window):
