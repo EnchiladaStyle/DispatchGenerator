@@ -1,30 +1,4 @@
 
-
-wardCoveTimes = {
-    "Ward Cove": 0,
-    "Dock 2": 25,
-    "Dock 1": 25,
-    "Dock 3": 25,
-    "Dock 4": 25,
-    "Lumberjack": 25,
-    "George Inlet": 50,
-    "Cannery": 60,
-    "Rainforest": 40,
-    "Cape Fox Lodge": 30,
-    "Saxmon": 35,
-    "Disco": 25,
-    "Taquan": 20,
-    "Jeep Base": 7,
-    "Harriot Hunt": 30,
-    "White River": 45,
-    "Adventure Carts": 25,
-    "Knudson": 30,
-    "Clover Pass": 40,
-    "Totem Byte": 25,
-    "Lighthouse": 5,
-    "Cambria": 17
-}
-
 dock4Times = {
     "Dock 4": 0,
     "Dock 2": 7,
