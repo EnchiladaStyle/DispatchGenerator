@@ -1,6 +1,5 @@
 import wx
 import os
-from CreateDataModel import createDataModel
 from VRP import VRP
 from createDispatch import createDispatch
 
