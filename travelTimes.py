@@ -1,28 +1,4 @@
 
-georgeInletTimes = {
-    "Dock 1": dock1Times["George Inlet"],
-    "Dock 4": dock4Times["George Inlet"],
-    "Dock 2": dock2Times["George Inlet"],
-    "Dock 3": dock3Times["George Inlet"],
-    "Ward Cove": wardCoveTimes["George Inlet"],
-    "Lumberjack": lumberjackTimes["George Inlet"],
-    "George Inlet": 0,
-    "Cannery": 10,
-    "Rainforest": 20,
-    "Cape Fox Lodge": 45,
-    "Saxmon": 25,
-    "Disco": 40,
-    "Taquan": 45,
-    "Jeep Base": 50,
-    "Harriot Hunt": 70,
-    "White River": 85,
-    "Adventure Carts": 70,
-    "Knudson": 70,
-    "Clover Pass": 70,
-    "Totem Byte": 60,
-    "Lighthouse": 50,
-    "Cambria": 50
-}
 
 canneryTimes = {
     "Dock 1": dock1Times["Cannery"],
