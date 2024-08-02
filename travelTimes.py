@@ -1,29 +1,4 @@
 
-rainforestTimes = {
-    "Dock 1": dock1Times["Rainforest"],
-    "Dock 4": dock4Times["Rainforest"],
-    "Dock 2": dock2Times["Rainforest"],
-    "Dock 3": dock3Times["Rainforest"],
-    "Ward Cove": wardCoveTimes["Rainforest"],
-    "Lumberjack": lumberjackTimes["Rainforest"],
-    "George Inlet": georgeInletTimes["Rainforest"],
-    "Cannery": canneryTimes["Rainforest"],
-    "Rainforest": 0,
-    "Cape Fox Lodge": 40,
-    "Saxmon": 25,
-    "Disco": 25,
-    "Taquan": 30,
-    "Jeep Base": 40,
-    "Harriot Hunt": 65,
-    "White River": 70,
-    "Adventure Carts": 60,
-    "Knudson": 70,
-    "Clover Pass": 75,
-    "Totem Byte": 60,
-    "Lighthouse": 40,
-    "Cambria": 35
-}
-
 cfLodgeTimes = {
     "Dock 3": dock3Times["Cape Fox Lodge"],
     "Dock 2": dock2Times["Cape Fox Lodge"],
