@@ -1,30 +1,5 @@
 
 
-saxmonTimes = {
-    "Dock 3": dock3Times["Saxmon"],
-    "Dock 2": dock2Times["Saxmon"],
-    "Dock 1": dock1Times["Saxmon"],
-    "Dock 4": dock4Times["Saxmon"],
-    "Ward Cove": wardCoveTimes["Saxmon"],
-    "Lumberjack": lumberjackTimes["Saxmon"],
-    "George Inlet": georgeInletTimes["Saxmon"],
-    "Cannery": canneryTimes["Saxmon"],
-    "Rainforest": rainforestTimes["Saxmon"],
-    "Cape Fox Lodge": cfLodgeTimes["Saxmon"],
-    "Saxmon": 0,
-    "Disco": 25,
-    "Taquan": 30,
-    "Jeep Base": 40,
-    "Harriot Hunt": 60,
-    "White River": 70,
-    "Adventure Carts": 50,
-    "Knudson": 50,
-    "Clover Pass": 55,
-    "Totem Byte": 45,
-    "Lighthouse": 45,
-    "Cambria": 30
-}
-
 discoTimes = {
     "Dock 1": dock1Times["Disco"],
     "Dock 4": dock4Times["Disco"],
