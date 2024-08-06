@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Saxmon": saxmonTimes["Taquan"],
     "Disco": discoTimes["Taquan"],
     "Taquan": 0,
     "Jeep Base": 15,
