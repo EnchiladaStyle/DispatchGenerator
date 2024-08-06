@@ -1,7 +1,5 @@
 
 taquanTimes = {
-    
-    "Dock 2": dock2Times["Taquan"],
     "Dock 3": dock3Times["Taquan"],
     "Ward Cove": wardCoveTimes["Taquan"],
     "Lumberjack": lumberjackTimes["Taquan"],
