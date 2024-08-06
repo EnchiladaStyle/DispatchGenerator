@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Cape Fox Lodge": cfLodgeTimes["Taquan"],
     "Saxmon": saxmonTimes["Taquan"],
     "Disco": discoTimes["Taquan"],
     "Taquan": 0,
