@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Cannery": canneryTimes["Taquan"],
     "Rainforest": rainforestTimes["Taquan"],
     "Cape Fox Lodge": cfLodgeTimes["Taquan"],
     "Saxmon": saxmonTimes["Taquan"],
