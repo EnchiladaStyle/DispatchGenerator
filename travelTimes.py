@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Jeep Base": 15,
     "Harriot Hunt": 45,
     "White River": 50,
     "Adventure Carts": 35,
