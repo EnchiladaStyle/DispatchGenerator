@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Cambria": 4
 }
 
 jeepBaseTimes = {
