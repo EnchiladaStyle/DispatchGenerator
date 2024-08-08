@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Clover Pass": 40,
     "Totem Byte": 30,
     "Lighthouse": 20,
     "Cambria": 4
