@@ -1,6 +1,5 @@
 
 taquanTimes = {
-    "Lighthouse": 20,
     "Cambria": 4
 }
 
