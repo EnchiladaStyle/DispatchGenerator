@@ -1,6 +1,3 @@
-
-
-
 jeepBaseTimes = {
     "Ward Cove": wardCoveTimes["Jeep Base"],
     "Dock 2": dock2Times["Jeep Base"],
