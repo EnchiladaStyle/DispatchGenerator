@@ -1,6 +1,5 @@
 
-taquanTimes = {
-}
+
 
 jeepBaseTimes = {
     "Ward Cove": wardCoveTimes["Jeep Base"],
