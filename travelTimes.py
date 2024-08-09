@@ -1,5 +1,4 @@
 jeepBaseTimes = {
-    "Lumberjack": lumberjackTimes["Jeep Base"],
     "George Inlet": georgeInletTimes["Jeep Base"],
     "Cannery": canneryTimes["Jeep Base"],
     "Rainforest": rainforestTimes["Jeep Base"],
