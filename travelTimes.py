@@ -1,6 +1,3 @@
-jeepBaseTimes = {
-    "Cambria": 15
-}
 
 harriotHuntTimes = {
     "Ward Cove": wardCoveTimes["Harriot Hunt"],
