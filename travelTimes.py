@@ -1,6 +1,5 @@
 
 harriotHuntTimes = {
-    "Dock 1": dock1Times["Harriot Hunt"],
     "Dock 3": dock3Times["Harriot Hunt"],
     "Dock 4": dock4Times["Harriot Hunt"],
     "Lumberjack": lumberjackTimes["Harriot Hunt"],
