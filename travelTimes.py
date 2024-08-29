@@ -1,6 +1,5 @@
 
 harriotHuntTimes = {
-    "Disco": discoTimes["Harriot Hunt"],
     "Taquan": taquanTimes["Harriot Hunt"],
     "Jeep Base": jeepBaseTimes["Harriot Hunt"],
     "Harriot Hunt": 0,
