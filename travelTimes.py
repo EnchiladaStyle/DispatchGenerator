@@ -1,6 +1,5 @@
 
 whiteRiverTimes = {
-    "Dock 2": dock2Times["White River"],
     "Dock 1": dock1Times["White River"],
     "Dock 3": dock3Times["White River"],
     "Dock 4": dock4Times["White River"],
